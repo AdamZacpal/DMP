@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="Adam Zacpal">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Adam Zacpal | Vítejte </title>
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+    <header>
+        <div class="centrovac">
+            <div id="nadpis">
+                <h1>Adam Zacpal</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="aktivni"><a href={{url_for("index")}}>Domů</a></li>
+                    <li><a href={{url_for("omne")}}>O mně</a></li>
+                    <li><a href={{url_for("clanky")}}>Články</a></li>
+                    <li><a href={{url_for("kontakt")}}>Kontakt</a></li>
+                </ul>
+
+            </nav>
+        </div>
+    </header>
+    {% block body %}
+    <section id="uvod" >
+        <div class="centrovac">
+            <h1>Vítejte na mých webových stránkách</h1>
+            <p>Quisque ac justo tempus neque iaculis tincidunt. Morbi at leo eu diam condimentum elementum tincidunt a odio. Etiam suscipit semper nulla.</p>
+
+        </div>
+    </section>
+    <section id="odber">
+        <div class="centrovac">
+            <h1>Odebírat nové články</h1>
+            <form>
+                <input type="email" placeholder="Napiš Email">
+                <button type="submit" class="tlacitko_1">Odebírat</button>
+            </form>
+        </div>
+    </section>
+    <section id="boxy">
+        <div class="centrovac">
+            <div class="box">
+                <h3>Clanek 1</h3>
+                <img src="../static/Obrazky/flax.jpg">
+                <p>Aliquam eu magna lobortis, blandit orci eget, rhoncus leo.</p>
+            </div>
+            <div class="box">
+                <h3>Clanek 2</h3>
+                <img src="../static/Obrazky/flax.jpg">
+                <p>Aliquam eu magna lobortis, blandit orci eget, rhoncus leo.</p>
+            </div>
+            <div class="box">
+                <h3>Clanek 3</h3>
+                <img src="../static/Obrazky/flax.jpg">
+                <p>Aliquam eu magna lobortis, blandit orci eget, rhoncus leo.</p>
+            </div>
+        </div>
+    </section>
+    {% endblock body %}
+    <footer>
+        <p>Adam Zacpal, Copyright &copy; 2019</p>
+    </footer>
+</body>
+</html>

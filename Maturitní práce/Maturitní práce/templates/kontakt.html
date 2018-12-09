@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends "index.html" %}
+
+{% block body %}
+<div class="centrovac">
+    <h1>Kontakt</h1>
+    <div id="dotaznik">
+        <h2>Napište mi</h2>
+
+        <form class="formular">
+            <div>
+                <label>Jméno</label><br>
+                <input type="text" placeholder="Jméno" name="jmeno">
+            </div>
+            <div>
+                <label>Příjmení</label><br>
+                <input type="text" placeholder="Příjmení" name="prijmeni">
+            </div>
+            <div>
+                <label>E-mail</label><br>
+                <input type="email" placeholder="E-mail" name="email">
+            </div>
+            <div>
+                <label>Předmět</label><br>
+                <input type="text" placeholder="Předmět" name="predmet">
+            </div>
+            <div>
+                <label>Zpráva</label><br>
+                <textarea placeholder="Zpráva" name="zprava"></textarea>
+            </div>
+            <div>
+                <button class="tlacitko_1" type="submit">Odeslat</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock body %}
+
+</body>
+</html>
