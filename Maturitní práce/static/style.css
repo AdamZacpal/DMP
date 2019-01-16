@@ -39,12 +39,13 @@ header a{
     text-decoration: none;
     text-transform: uppercase;
     font-size: 17px;
+
 }
 
 header li{
     float:left;
     display: inline;
-    padding: 0 25px 0 25px;
+    padding: 0 20px 0 20px;
 }
 
 header #nadpis{
@@ -59,9 +60,9 @@ header nav{
     margin-top: 10px;
 }
 
+
 header .aktivni, a:hover{
     color:black;
-    font-weight:bold;
 }
 
 /* Uvod */
@@ -115,10 +116,114 @@ header .aktivni, a:hover{
 #boxy .box img{
     width:100%;
 }
+
+/* Dotazník */
+
+#dotaznik{
+    width: 40%;
+    background-color: white;
+    border: black solid 1px;
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 30%;
+    float: left;
+}
+#dotaznik .formular input,#dotaznik .formular textarea{
+    margin-bottom: 5px;
+    background-color: #f4f4f4;
+    width: 90%;
+    padding: 5px;
+}
+
+/* Galerie */
+.galerie{
+  margin: 10px 5px;
+  text-align: center;
+}
+.galerie img{
+  width: 230px;
+  padding: 5px;
+  filter: grayscale(100%);
+  transition: 0.5s;
+}
+.galerie img:hover{
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+/* Článek */
+#clanek{
+height: auto;
+background-image: url(obrazky/atheny.jpeg);
+background-repeat: no-repeat;
+filter: grayscale(100%);
+text-align: center;
+width: 100%;
+
+color: white;
+display: block;
+margin-left: auto;
+margin-right: auto;
+
+}
+#clanek h1{
+ font-size: 65px;
+ margin-top: 20%;
+ margin-bottom: 20%;
+}
+.clanek{
+    width: 60%;
+    margin:auto;
+    overflow:hidden;
+    font-size: 20px;
+}
+/* Články */
+#blok1{
+  font-size: 20px;
+  background-color: #826048;
+  color: white;
+  margin-left: 15%;
+  width:20%;
+  padding: 20px;
+  border: 3px solid black;
+  text-align: center;
+}
+
+#blok1 li{
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.nahled{
+  width:40%;
+}
+
 footer{
     padding:20px;
     margin-top:20px;
     color:white;
     background-color: #826048;
     text-align: center;
+    border-top:black 3px solid;
+}
+
+@media(max-width: 768px){
+    header #nadpis,
+    header nav,
+    header nav li{
+        float:none;
+        text-align: center;
+        width: 100%;
+    }
+    header .toggle{
+        color:white;
+        width:100%;
+        padding:10px 20px;
+        text-align: right;
+        background:#826048;
+        box-sizing: border-box;
+    }
+
+
+
 }

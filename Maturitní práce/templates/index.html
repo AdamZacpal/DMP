@@ -7,7 +7,10 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title>Adam Zacpal | Vítejte </title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" type"text/css" href="../static/style.css">
+    <link rel="stylesheet" type"text/css" href="../static/lightbox.min.css">
+    <script type="text/javascript" src="../static/lightbox-plus-jquery.min.js"></script>
+
 
 </head>
 <body>
@@ -17,11 +20,12 @@
                 <h1>Adam Zacpal</h1>
             </div>
             <nav>
+
                 <ul>
-                    <li class="aktivni"><a href="index.html">Domů</a></li>
-                    <li><a href="omne.html">O mně</a></li>
-                    <li><a href="clanky.html">Články</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li class="aktivni"><a href={{url_for("index")}}>Domů</a></li>
+                    <li><a href={{url_for("omne")}}>O mně</a></li>
+                    <li><a href={{url_for("clanky")}}>Články</a></li>
+                    <li><a href={{url_for("kontakt")}}>Kontakt</a></li>
                 </ul>
 
             </nav>

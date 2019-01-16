@@ -8,7 +8,23 @@
 {% extends "index.html" %}
 
 {% block body %}
+<div class="centrovac">
 <h1>Články</h1>
+</div>
+
+<div id="blok1">
+<ul>
+  <li>Datum: 15.12.2018</li>
+  <li>Kategorie: Cestování</li>
+  <li>Délka článku: Střední</li>
+  <li>Místo: Athény</li>
+  <li>Fotografie: Ano - 10</li>
+</ul>
+</div>
+<div class="nahled">
+  <a href="{{url_for("atheny")}}"><img src="../static/Obrazky/Atheny1.jpg"></a>
+</div>
+
 {% endblock body %}
 </body>
 </html>
