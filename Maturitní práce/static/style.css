@@ -66,10 +66,12 @@ header .aktivni, a:hover{
 }
 
 /* Uvod */
+
 #uvod{
     min-height: 400px;
-    background: url("obrazky/flax.jpg") 0 -100px;
+    background: url("obrazky/vitejte.png") 0 -100px;
     text-align: center;
+    width:100%;
     color:white;
 }
 #uvod h1{
@@ -252,12 +254,10 @@ background-repeat: no-repeat;
 filter: grayscale(100%);
 text-align: center;
 width: 100%;
-
 color: white;
 display: block;
 margin-left: auto;
 margin-right: auto;
-
 }
 #clanek h1{
  font-size: 65px;
@@ -270,26 +270,41 @@ margin-right: auto;
     overflow:hidden;
     font-size: 20px;
 }
+
 /* Články */
-#blok1{
-  font-size: 20px;
-  background-color: #826048;
-  color: white;
-  margin-left: 15%;
-  width:20%;
-  padding: 20px;
-  border: 3px solid black;
-  text-align: center;
+
+#clanky{
+height: auto;
+background-image: url(obrazky/atheny.jpeg);
+background-repeat: no-repeat;
+filter: grayscale(100%);
+text-align: center;
+width: 100%;
+color: white;
+display: block;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 0;
+background-size: cover;
 }
 
-#blok1 li{
-  margin-bottom: 10px;
-  margin-left: 10px;
+#clanky h1{
+ font-size: 65px;
+ margin-top: 20%;
+}
+#clanky ul{
+  text-decoration: underline;
+  margin-bottom: 20%;
 }
 
-.nahled{
-  width:40%;
+#clanky li{
+  font-size: 25px;
+  display: inline;
+  margin-right: 10px;
 }
+
+
+
 
 footer{
     padding:20px;

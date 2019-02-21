@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title>Adam Zacpal | Vítejte </title>
-    <link rel="stylesheet" type"text/css" href="../static/style.css">
-    <link rel="stylesheet" type"text/css" href="../static/lightbox.min.css">
-    <script type="text/javascript" src="../static/lightbox-plus-jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lightbox.min.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='lightbox-plus-jquery.min.js') }}"></script>
 
 
 </head>
@@ -32,6 +32,7 @@
         </div>
     </header>
     {% block body %}
+
     <section id="uvod" >
         <div class="centrovac">
             <h1>Vítejte na mých webových stránkách</h1>
@@ -39,6 +40,8 @@
 
         </div>
     </section>
+
+
     <section id="odber">
         <div class="centrovac">
             <h1>Odebírat nové články</h1>
