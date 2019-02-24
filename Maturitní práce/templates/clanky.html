@@ -9,9 +9,10 @@
 
 {% block body %}
 
-
-<section id="clanky">
-  <a href="{{url_for("atheny")}}">
+    <ul>
+  {%for clanek in clanky%}
+      <li id="clanky"><a href="clanek/{{clanek.id}}">{{clanek.title}}
+  
   <div class="centrovac">
     <h1>MŮJ VÝLET DO ATHÉN</h1>
     <ul>
@@ -21,9 +22,11 @@
       <li>Místo: Athény</li>
       <li>Fotografie: 10</li>
     </ul>
+    </li>
   </div>
   </a>
-</section>
+  {%endfor%}
+  </ul>
 
 
 
