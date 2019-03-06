@@ -4,26 +4,26 @@ Spyder Editor
 
 This is a temporary script file.
 """
-#from flask_mail import Mail, Message
+from flask_mail import Mail, Message
 
 
 from flask import Flask, render_template, request, url_for, flash, redirect, logging, session
 from data import Clanky
-from flaskext.mysql import MySQL
+#from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
+from functools import wraps
 app = Flask(__name__)
 
 app.secret_key=b"rcKeEd5VAz3tKvpxVWf1ff5XrpsNZyeD"
 
-app.config["MYSQL_HOST"]="localhost"
-app.config["MYSQL_USER"]="root"
-app.config["MYSQL_PASSWORD"]="heslo"
-app.config["MYSQL_DB"]="myflaskapp"
-app.config["MYSQL_CURSORCLASS"]="DictCursor"
+app.config["MYSQL_DATABASE_HOST"]="localhost"
+app.config["MYSQL_DATABASE_USER"]="root"
+app.config["MYSQL_DATABASE_PASSWORD"]="heslo"
+app.config["MYSQL_DATABASE_DB"]="myflaskapp"
+app.config["MYSQL_DATABASE_CURSORCLASS"]="DictCursor"
 
-mysql=MySQL(app)
-
+#mysql = MySQL(app)
 Clanky=Clanky()
 
 app.config.update(dict(
@@ -35,7 +35,7 @@ app.config.update(dict(
     MAIL_USERNAME = 'zacpalweb',
     MAIL_PASSWORD = 'Fotbal123.'
 ))
-#mail= Mail(app)
+mail= Mail(app)
 
 @app.route("/")
 def index():
@@ -71,8 +71,8 @@ def process_mail():
     msg = Message("Test", sender='zacpalweb@gmail.com', recipients=['zacpalweb@email.com'])
     msg.body(jmeno, prijmeni, email, predmet, zprava)
     mail.send(msg)
+    flash("Děkuji za dotaz, odpovím hned jak to bude možné.")
 
-    return flash("Děkuji za dotaz, odpovím hned jak to bude možné.")
 
 class RegisterForm(Form):
     jmeno = StringField('Jméno', [validators.Length(min=1, max=50)])
@@ -126,6 +126,17 @@ def login():
 
     return render_template("login.html")
 
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("Tato stránka je pouze pro autory, přihlaste se prosím.")
+            return redirect(url_for('login'))
+    return wrap
+
+
 @app.route("/logout")
 def logout():
     session.clear()
@@ -133,6 +144,7 @@ def logout():
     return redirect(url_for("login"))
 
 @app.route("/redakce", methods=["GET","POST"])
+@is_logged_in
 def redakce():
     return render_template("redakce.html")
 
