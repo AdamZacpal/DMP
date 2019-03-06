@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends "index.html" %}
+
+{% block body %}
+  {% from "includes/_formhelpers.html" import render_field %}
+  <div class="centrovac">
+    <div id="dotaznik">
+        <h2>Registrace</h2>
+
+        <form class="formular" method="post">
+            <div>
+                {{render_field(form.jmeno)}}
+            </div>
+
+            <div>
+                {{render_field(form.prezdivka)}}
+            </div>
+
+            <div>
+                {{render_field(form.heslo)}}
+            </div>
+
+            <div>
+                {{render_field(form.potvrzeni)}}
+            </div>
+
+            <div>
+                <button class="tlacitko_1" type="submit" onclick="alert('Odesláno')">Odeslat</button>
+            </div>
+        </form>
+    </div>
+  </div>
+{% endblock body %}
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends "index.html" %}
+
+{% block body %}
+
+
+
+<div class="centrovac">
+  <div id="dotaznik">
+    <h1>Login</h1>
+    <form class="formular" method="post">
+      <input type="text" name="prezdivka" placeholder="Přezdívka" value={{request.form.prezdivka}}>
+      <input type="password" name="heslo" value={{request.form.heslo}} placeholder="Heslo">
+      <button class="tlacitko_1" type="submit" onclick="alert('Odesláno')">Přihlaš mě!</button>
+    </form>
+  </div>
+</div>
+
+
+{% endblock body %}
+
+</body>
+</html>

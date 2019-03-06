@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends "index.html" %}
+
+{% block body %}
+
+    <ul>
+  {%for clanek in clanky%}
+      <li id="clanky"><a href="clanek/{{clanek.id}}">{{clanek.title}}
+  
+  <div class="centrovac">
+    <h1>MŮJ VÝLET DO ATHÉN</h1>
+    <ul>
+      <li>Datum: 15.12.2018</li>
+      <li>Kategorie: Cestování</li>
+      <li>Délka článku: Střední</li>
+      <li>Místo: Athény</li>
+      <li>Fotografie: 10</li>
+    </ul>
+    </li>
+  </div>
+  </a>
+  {%endfor%}
+  </ul>
+
+
+
+
+{% endblock body %}
+</body>
+</html>
