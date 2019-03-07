@@ -32,7 +32,7 @@ app.config.update(dict(
     MAIL_PORT = 465,
     MAIL_USE_TLS = False,
     MAIL_USE_SSL = True,
-    MAIL_USERNAME = 'zacpalweb',
+    MAIL_USERNAME = 'zacpalweb@gmail.com',
     MAIL_PASSWORD = 'Fotbal123.'
 ))
 mail= Mail(app)
@@ -53,7 +53,7 @@ def clanky():
 def clanek(id):
     return render_template("clanek.html", id=id)
 
-@app.route("/kontakt", methods=["POST","GET"])
+@app.route("/kontakt", methods=["GET"])
 def kontakt():
     return render_template("kontakt.html")
 
@@ -61,18 +61,19 @@ def kontakt():
 def atheny():
     return render_template("atheny.html")
 
-@app.route("/kontakt", methods=["POST","GET"])
+@app.route("/kontakt", methods=["POST"])
 def process_mail():
     jmeno=request.form["jmeno"]
     prijmeni=request.form["prijmeni"]
     email=request.form["email"]
     predmet=request.form["predmet"]
     zprava=request.form["zprava"]
-    msg = Message("Test", sender='zacpalweb@gmail.com', recipients=['zacpalweb@email.com'])
-    msg.body(jmeno, prijmeni, email, predmet, zprava)
+    msg = Message("Dotaz z webu" , sender='zacpalweb@gmail.com', recipients=['zacpalweb@gmail.com'])
+    mail_body=jmeno+" "+prijmeni+"\n"+email+"\n"+predmet+"\n"+zprava
+    msg.body = mail_body
     mail.send(msg)
     flash("Děkuji za dotaz, odpovím hned jak to bude možné.")
-
+    return redirect(url_for("kontakt"))
 
 class RegisterForm(Form):
     jmeno = StringField('Jméno', [validators.Length(min=1, max=50)])
