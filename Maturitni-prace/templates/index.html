@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='lightbox.min.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='lightbox-plus-jquery.min.js') }}"></script>
-    {% include "Includes/_messages.html" %}
+
 
 </head>
 <body>
@@ -36,8 +36,7 @@
     <section id="uvod" >
         <div class="centrovac">
             <h1>Vítejte na mých webových stránkách</h1>
-            <p>Quisque ac justo tempus neque iaculis tincidunt. Morbi at leo eu diam condimentum elementum tincidunt a odio. Etiam suscipit semper nulla.</p>
-
+            <p>Dobrý den, vítejte na mých webových stránkách, kde doufám již brzy budete moci najít spoustu zajímavých informací o cestování, sportu a dalších neopakovatelných událostech. Doufám že se vám tu bude líbit.</p>
         </div>
     </section>
 
@@ -51,117 +50,27 @@
             </form>
         </div>
     </section>
+
     <section id="boxy">
-        <div class="main-banner" id="main-banner">
-            <div class="imgbanbtn imgbanbtn-prev" id="imgbanbtn-prev" ></div>
-            <div class="imgban" id="imgban3">
-              <div class="imgban-box">
+      <div class="centrovac">
+        <div class="box">
                 <h2>Můj výlet do Athén</h2>
+                <a href="{{url_for("atheny")}}"><img src="../static/Obrazky/Atheny1.jpg"></a>
                 <p>Zážitky z hlavního města Řecka</p>
-              </div>
-            </div>
-            <div class="imgban" id="imgban2">
-              <div class="imgban-box">
-                <h2>Můj výlet do Athén</h2>
-                <p>Zážitky z hlavního města Řecka</p>
-              </div>
-            </div>
-            <div class="imgban" id="imgban1">
-              <div class="imgban-box">
-                <h2>Můj výlet do Athén</h2>
-                <p>Zážitky z hlavního města Řecka</p>
-              </div>
-            </div>
-            <div class="imgbanbtn imgbanbtn-next" id="imgbanbtn-next" ></div>
         </div>
-
+        <div class="box">
+                <h2>Můj výlet do Athén</h2>
+                <a href="{{url_for("atheny")}}"><img src="../static/Obrazky/Atheny2.jpg"></a>
+                <p>Zážitky z hlavního města Řecka</p>
+        </div>
+        <div class="box">
+                <h2>Můj výlet do Athén</h2>
+                <a href="{{url_for("atheny")}}"><img src="../static/Obrazky/Atheny3.jpg"></a>
+                <p>Zážitky z hlavního města Řecka</p>
+        </div>
+      </div>
     </section>
-    <script>
-      var bannerStatus= 1;
-      var bannerTimer= 4000;
 
-      window.onload = function(){
-        bannerLoop();
-      }
-
-      var startBannerLoop = setInterval(function(){
-        bannerLoop();
-      }, bannerTimer);
-
-      document.getElementbyId("main-banner").onmouseenter=function(){
-        clearInterval(startBannerLoop);
-      }
-
-      document.getElementbyId("main-banner").onmouseleave=function(){
-        startBannerLoop = setInterval(function(){
-          bannerLoop();
-        }, bannerTimer);
-      }
-
-      document.getElementById("imgbanbtn-prev").onclick=function(){
-        if (bannerStatus === 1){
-          bannerStatus = 2;
-        }
-        else if (bannerStatus === 2){
-          bannerStatus = 3;
-        }
-        if (bannerStatus === 3){
-          bannerStatus = 1;
-        }
-        bannerLoop();
-      }
-      document.getElementById("imgbanbtn-next").onclick=function(){
-        bannerLoop();
-      }
-
-      function bannerLoop(){
-        if(bannerStatus === 1){
-          document.getElemendById("imgban2").style.opacity = "0";
-          setTimeout(function(){
-            document.getElemendById("imgban1").style.right = "0px";
-            document.getElemendById("imgban1").style.zIndex = "1000";
-            document.getElemendById("imgban2").style.right = "-1200px";
-            document.getElemendById("imgban2").style.zIndex = "1500";
-            document.getElemendById("imgban3").style.right = "1200px";
-            document.getElemendById("imgban3").style.zIndex = "500";
-          }, 500);
-          setTimeout(function(){
-            document.getElemendById("imgban2").style.opacity = "1";
-          }, 1000);
-          bannerStatus = 2;
-        }
-        else if(bannerStatus === 2){
-          document.getElemendById("imgban3").style.opacity = "0";
-          setTimeout(function(){
-            document.getElemendById("imgban2").style.right = "0px";
-            document.getElemendById("imgban2").style.zIndex = "1000";
-            document.getElemendById("imgban3").style.right = "-1200px";
-            document.getElemendById("imgban3").style.zIndex = "1500";
-            document.getElemendById("imgban1").style.right = "1200px";
-            document.getElemendById("imgban1").style.zIndex = "500";
-          }, 500);
-          setTimeout(function(){
-            document.getElemendById("imgban3").style.opacity = "1";
-          }, 1000);
-          bannerStatus = 3;
-        }
-        else if(bannerStatus === 3){
-          document.getElemendById("imgban1").style.opacity = "0";
-          setTimeout(function(){
-            document.getElemendById("imgban3").style.right = "0px";
-            document.getElemendById("imgban3").style.zIndex = "1000";
-            document.getElemendById("imgban1").style.right = "-1200px";
-            document.getElemendById("imgban1").style.zIndex = "1500";
-            document.getElemendById("imgban2").style.right = "1200px";
-            document.getElemendById("imgban2").style.zIndex = "500";
-          }, 500);
-          setTimeout(function(){
-            document.getElemendById("imgban1").style.opacity = "1";
-          }, 1000);
-          bannerStatus = 1;
-        }
-      }
-    </script>
     {% endblock body %}
     <footer>
         <p>Adam Zacpal, Copyright &copy; 2019</p>

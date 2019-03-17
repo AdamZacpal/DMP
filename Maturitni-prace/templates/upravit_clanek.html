@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adam Zacpal | Upravit článek</title>
+</head>
+<body>
+{% extends "index.html" %}
+
+{% block body %}
+
+<div class="centrovac">
+  {% from "includes/_formhelpers.html" import render_field %}
+    <div id="dotaznik">
+      <h2>Upravit článek</h2>
+      <form class="formular" method="post">
+          <div>
+              {{render_field(form.nazev)}}
+          </div>
+          <div>
+              {{render_field(form.autor)}}
+          </div>
+          <div>
+              {{render_field(form.body)}}
+          </div>
+          <div>
+              <button class="tlacitko_1" type="submit" onclick="alert('Odesláno')">Odeslat</button>
+          </div>
+      </form>
+    </div>
+</div>
+{% endblock body %}
+
+</body>
+</html>

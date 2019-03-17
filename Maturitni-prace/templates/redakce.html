@@ -2,16 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Adam Zacpal | Redakce</title>
 </head>
 <body>
 {% extends "index.html" %}
 
 {% block body %}
 
+<div class="centrovac">
+
 
 <h1>Redakce</h1>
 <h2>Přihlášen jako: {{session.prezdivka}}</h2>
+<a href="/pridat_clanek"><button class="tlacitko_1" type="button">Přidat článek</button></a>
+<hr>
+<table id="tabulka" cellpadding="10">
+  <tr>
+    <th>ID</th>
+    <th>Název</th>
+    <th>Autor</th>
+    <th>Datum</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  {%for clanek in clanky%}
+  <tr>
+    <td>{{clanek[0]}}</td>
+    <td>{{clanek[1]}}</td>
+    <td>{{clanek[2]}}</td>
+    <td>{{clanek[4]}}</td>
+    <td><a href="upravit_clanek/{{clanek[0]}}"><button class="tlacitko_1" type="button">Upravit</button></a></td>
+    <td><form action="{{url_for("vymazat_clanek", id=clanek[0])}}" method="post">
+
+      <button class="tlacitko_1" type="submit" value="Smazat">Smazat</button>
+    </form></td>
+  </tr>
+
+  {%endfor%}
+</table>
+</div>
+
 
 
 {% endblock body %}

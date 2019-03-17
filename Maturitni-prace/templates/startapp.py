@@ -131,12 +131,12 @@ def login():
                 flash("Právě jsi se přihlásil")
                 return redirect(url_for("redakce"))
             else:
-                flash("Špatné heslo")
-                return render_template("login.html")
+                error="Chybné přihlášení"
+                return render_template("login.html", error=error)
             cur.close()
         else:
-            flash("Přezdívka nenalezena")
-            return render_template("login.html")
+            error="Přezdívka nenalezena"
+            return render_template("login.html", error=error)
 
     return render_template("login.html")
 

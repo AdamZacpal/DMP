@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Adam Zacpal | Články</title>
 </head>
 <body>
 {% extends "index.html" %}
@@ -11,16 +11,13 @@
 
     <ul>
   {%for clanek in clanky%}
-      <li id="clanky"><a href="clanek/{{clanek.id}}">{{clanek.title}}
-  
+      <li id="clanky"><a href="clanek/{{clanek[0]}}">
+
   <div class="centrovac">
-    <h1>MŮJ VÝLET DO ATHÉN</h1>
+    <h1>{{clanek[1]}}</h1>
     <ul>
-      <li>Datum: 15.12.2018</li>
-      <li>Kategorie: Cestování</li>
-      <li>Délka článku: Střední</li>
-      <li>Místo: Athény</li>
-      <li>Fotografie: 10</li>
+      <li>Napsal: {{clanek[2]}}</li>
+      <li>Vytvořeno: {{clanek[4]}}</li>
     </ul>
     </li>
   </div>

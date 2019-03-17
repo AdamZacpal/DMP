@@ -2,13 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Adam Zacpal | {{clanek[1]}}</title>
 </head>
 <body>
 {% extends "index.html" %}
 
 {% block body %}
-<h1>{{id}}</h1>
+  <section id="clanek">
+    <div class="centrovac">
+      <h1>{{clanek[1]}}</h1>
+      <small>Napsal {{clanek[2]}} dne: {{clanek[4]}}</small>
+    </div>
+  </section>
+
+
+<div class="clanek">
+{{clanek[3]}}
+</div>
+<div class="centrovac">
+<div class="galerie">
+  {% for obrazek in obrazky %}
+  <a href="../static/Obrazky/Atheny1.jpg" data-lightbox="mojegalerie" data-Title="Z letadla"><img src="../static/Obrazky/Atheny1-small.jpg"></a>
+  {% endfor %}
+</div>
+</div>
 {% endblock body %}
 </body>
 </html>
