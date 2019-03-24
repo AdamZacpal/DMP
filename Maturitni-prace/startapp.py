@@ -12,29 +12,17 @@ from flaskext.mysql import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
+from config import MailConfig, MySQLConfig, KeyConfig, regklic
 app = Flask(__name__)
 
 # Nastavení MySQL
 mysql = MySQL()
-app.secret_key=b"rcKeEd5VAz3tKvpxVWf1ff5XrpsNZyeD"
-
-app.config["MYSQL_DATABASE_HOST"]="localhost"
-app.config["MYSQL_DATABASE_USER"]="root"
-app.config["MYSQL_DATABASE_PASSWORD"]="heslo"
-app.config["MYSQL_DATABASE_DB"]="myflaskapp"
-app.config["MYSQL_DATABASE_CURSORCLASS"]="DictCursor"
+app.config.from_object(KeyConfig)
+app.config.from_object(MySQLConfig)
 mysql.init_app(app)
 
 # Nastavení Mailu
-app.config.update(dict(
-    DEBUG=True,
-    MAIL_SERVER = 'smtp.googlemail.com',
-    MAIL_PORT = 465,
-    MAIL_USE_TLS = False,
-    MAIL_USE_SSL = True,
-    MAIL_USERNAME = 'zacpalweb@gmail.com',
-    MAIL_PASSWORD = 'Fotbal123.'
-))
+app.config.from_object(MailConfig)
 mail= Mail(app)
 
 @app.route("/")
@@ -95,7 +83,7 @@ class RegisterForm(Form):
     prezdivka = StringField('Přezdívka', [validators.Length(min=1, max=25)])
     heslo = PasswordField('Heslo', [validators.DataRequired(), validators.EqualTo('potvrzeni', message='Hesla se neshodují')])
     potvrzeni = PasswordField('Potvrzení hesla')
-
+    klic = PasswordField('Ověřovací klíč')
 # Registrace
 @app.route("/registrace", methods=["GET","POST"])
 def registrace():
@@ -104,15 +92,23 @@ def registrace():
         jmeno=form.jmeno.data
         prezdivka=form.prezdivka.data
         heslo=sha256_crypt.encrypt(str(form.heslo.data))
+        klic=form.klic.data
 
-        cur=mysql.get_db().cursor()
-        cur.execute("INSERT INTO users(jmeno, prezdivka, heslo) VALUES(%s, %s, %s)",[jmeno, prezdivka, heslo])
+        if klic==regklic:
 
-        mysql.get_db().commit()
-        cur.close()
+            cur=mysql.get_db().cursor()
+            cur.execute("INSERT INTO users(jmeno, prezdivka, heslo) VALUES(%s, %s, %s)",[jmeno, prezdivka, heslo])
 
-        flash("Právě jsi se registroval")
-        return redirect(url_for("login"))
+            mysql.get_db().commit()
+            cur.close()
+
+            flash("Právě jsi se registroval")
+
+            return redirect(url_for("login"))
+        else:
+            flash("Nemáte oprávnění k registraci")
+            return render_template("index.html")
+
     return render_template("registrace.html", form=form)
 
 
