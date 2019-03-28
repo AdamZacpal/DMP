@@ -36,6 +36,7 @@ def omne():
 # Vytvoření náhledu článků
 @app.route("/clanky")
 def clanky():
+    # Výběr všech článků z databáze
     cur=mysql.get_db().cursor()
     result=cur.execute("SELECT * FROM clanky")
     clanky=cur.fetchall()
@@ -49,6 +50,7 @@ def clanky():
 # Vytvoření článku
 @app.route("/clanek/<string:id>/")
 def clanek(id):
+    # Výběr jednotlivých článků z databáze
     cur=mysql.get_db().cursor()
     result=cur.execute("SELECT * FROM clanky WHERE id=%s",[id])
     clanek=cur.fetchone()
@@ -65,11 +67,14 @@ def atheny():
 # Kontakt
 @app.route("/kontakt", methods=["POST"])
 def process_mail():
+    # Vytáhnutí údajů formuláře
     jmeno=request.form["jmeno"]
     prijmeni=request.form["prijmeni"]
     email=request.form["email"]
     predmet=request.form["predmet"]
     zprava=request.form["zprava"]
+
+    # Vytvoření a odeslání samotné zprávy
     msg = Message("Dotaz z webu" , sender='zacpalweb@gmail.com', recipients=['zacpalweb@gmail.com'])
     mail_body=jmeno+" "+prijmeni+"\n"+email+"\n"+predmet+"\n"+zprava
     msg.body = mail_body
@@ -84,26 +89,27 @@ class RegisterForm(Form):
     heslo = PasswordField('Heslo', [validators.DataRequired(), validators.EqualTo('potvrzeni', message='Hesla se neshodují')])
     potvrzeni = PasswordField('Potvrzení hesla')
     klic = PasswordField('Ověřovací klíč')
+
 # Registrace
 @app.route("/registrace", methods=["GET","POST"])
 def registrace():
     form = RegisterForm(request.form)
+    # Validace
     if request.method=="POST" and form.validate():
+        # Vytáhnutí údajů z formuláře
         jmeno=form.jmeno.data
         prezdivka=form.prezdivka.data
         heslo=sha256_crypt.encrypt(str(form.heslo.data))
         klic=form.klic.data
-
+        # Potvrzení, že se jedná o člověka s registračním klíčem
         if klic==regklic:
-
+            # Zápis údajů do databáze
             cur=mysql.get_db().cursor()
             cur.execute("INSERT INTO users(jmeno, prezdivka, heslo) VALUES(%s, %s, %s)",[jmeno, prezdivka, heslo])
-
             mysql.get_db().commit()
             cur.close()
 
             flash("Právě jsi se registroval")
-
             return redirect(url_for("login"))
         else:
             flash("Nemáte oprávnění k registraci")
@@ -116,17 +122,19 @@ def registrace():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if request.method=="POST":
+        # Vytáhnutí údajů z formuláře
         prezdivka=request.form["prezdivka"]
         heslo_candidate=request.form["heslo"]
-
+        # Výběr uživatele z databáze
         cur=mysql.get_db().cursor()
         result=cur.execute("SELECT * FROM users WHERE prezdivka=%s",[prezdivka])
         if result>0:
+            # Ověření údajů z formuláře a z databáze
             data=cur.fetchone()
             heslo=data[3]
-
             if sha256_crypt.verify(heslo_candidate, heslo):
                 app.logger.info("Hesla se shodují")
+                # Přihlášení
                 session["logged_in"]=True
                 session["prezdivka"]=prezdivka
                 flash("Právě jsi se přihlásil")
@@ -165,6 +173,7 @@ def logout():
 @app.route("/redakce", methods=["GET","POST"])
 @is_logged_in
 def redakce():
+    # Výběr článků z databáze
     cur=mysql.get_db().cursor()
     result=cur.execute("SELECT * FROM clanky")
     clanky=cur.fetchall()
@@ -187,9 +196,11 @@ class ClanekForm(Form):
 def pridat_clanek():
     form = ClanekForm(request.form)
     if request.method=="POST" and form.validate():
+        # Vytáhnutí údajů z formuláře
         nazev=form.nazev.data
         body=form.body.data
         autor=form.autor.data
+        # Zápis údajů do databáze
         cur=mysql.get_db().cursor()
         cur.execute("INSERT INTO clanky(nazev, body, autor) VALUES(%s, %s, %s)",[nazev, body, autor])
         mysql.get_db().commit()
@@ -202,19 +213,22 @@ def pridat_clanek():
 @app.route("/upravit_clanek/<string:id>", methods=["GET","POST"])
 @is_logged_in
 def upravit_clanek(id):
+    # Výběr jednotlivých článků z databáze
     cur=mysql.get_db().cursor()
     result=cur.execute("SELECT * FROM clanky WHERE id=%s", [id])
     clanek=cur.fetchone()
     form = ClanekForm(request.form)
+    # Vložení dat z databáze do formuláře
     form.nazev.data=clanek[1]
     form.autor.data=clanek[2]
     form.body.data=clanek[3]
 
     if request.method=="POST" and form.validate():
+        # Vytáhnutí údajů z formuláře
         nazev=request.form["nazev"]
         body=request.form["body"]
         autor=request.form["autor"]
-
+        # Zápis údajů do databáze
         cur=mysql.get_db().cursor()
         cur.execute("UPDATE clanky SET nazev=%s, body=%s, autor=%s WHERE id=%s",[nazev, body, autor, id])
         mysql.get_db().commit()
@@ -227,6 +241,7 @@ def upravit_clanek(id):
 @app.route("/vymazat_clanek/<string:id>", methods=["POST"])
 @is_logged_in
 def vymazat_clanek(id):
+    # Smazání jednotlivých článků z databáze
     cur=mysql.get_db().cursor()
     cur.execute("DELETE FROM clanky WHERE id=%s",[id])
     mysql.get_db().commit()
